@@ -95,7 +95,21 @@ export default function Home() {
               type="file"
               multiple
               accept="image/*,video/*"
-              onChange={(e) => setArquivos(e.target.files)}
+              onChange={(e) => {
+                const files = e.target.files;
+
+                if (!files) return;
+
+                for (const file of Array.from(files)) {
+                  if (file.size > 50 * 1024 * 1024) {
+                    toast.error(`${file.name} excede o limite de 50 MB`);
+                    e.target.value = "";
+                    return;
+                  }
+                }
+
+                setArquivos(files);
+              }}
             />
 
             <button
