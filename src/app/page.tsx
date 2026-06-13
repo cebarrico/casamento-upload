@@ -124,6 +124,15 @@ export default function Home() {
                 setArquivos(files);
               }}
             />
+            {arquivos?.length ? (
+              <p className="text-center text-green-600 font-medium">
+                ✅ {arquivos.length} arquivo(s) selecionado(s)
+              </p>
+            ) : (
+              <p className="text-center text-gray-500 text-sm">
+                Nenhum arquivo selecionado
+              </p>
+            )}
             <button
               type="button"
               onClick={enviar}
