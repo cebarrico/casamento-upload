@@ -73,28 +73,41 @@ export default function Home() {
             <h1 className="text-2xl md:text-4xl font-bold text-center title-gradient leading-tight">
               Compartilhe seus momentos conosco ❤️
             </h1>
-
             <p className="text-center text-sm text-gray-600">
               Ajude-nos a guardar as lembranças deste dia tão especial.
             </p>
-
             <input
               placeholder="Seu nome (opcional)"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
             />
-
             <textarea
               rows={4}
               placeholder="Mensagem para os noivos (opcional)"
               value={mensagem}
               onChange={(e) => setMensagem(e.target.value)}
             />
+            <label
+              htmlFor="arquivos"
+              className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-[#b89a5a] rounded-3xl p-8 cursor-pointer hover:bg-white/50 transition"
+            >
+              <span className="text-5xl">📷</span>
+
+              <span className="text-lg font-semibold text-[#2f4f46]">
+                Toque aqui para enviar fotos
+              </span>
+
+              <span className="text-sm text-gray-500 text-center">
+                Tire uma foto agora ou escolha da galeria
+              </span>
+            </label>
 
             <input
+              id="arquivos"
               type="file"
               multiple
               accept="image/*,video/*"
+              className="hidden"
               onChange={(e) => {
                 const files = e.target.files;
 
@@ -111,7 +124,6 @@ export default function Home() {
                 setArquivos(files);
               }}
             />
-
             <button
               type="button"
               onClick={enviar}
