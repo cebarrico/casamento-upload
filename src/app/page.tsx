@@ -9,6 +9,7 @@ export default function Home() {
   const [arquivos, setArquivos] = useState<FileList | null>(null);
   const [enviando, setEnviando] = useState(false);
   const [sucesso, setSucesso] = useState(false);
+  const [progresso, setProgresso] = useState(0);
 
   async function enviar() {
     if (!arquivos?.length) {
@@ -17,7 +18,7 @@ export default function Home() {
     }
 
     setEnviando(true);
-
+    setProgresso(10);
     const form = new FormData();
 
     form.append("nome", nome);
@@ -26,21 +27,27 @@ export default function Home() {
     Array.from(arquivos).forEach((arquivo) => {
       form.append("arquivos", arquivo);
     });
-
+    setProgresso(30)
     const response = await fetch("/api/upload", {
       method: "POST",
       body: form,
     });
-
+    setProgresso(70);
     const data = await response.json();
-
+    setProgresso(100);
     setEnviando(false);
 
     if (data.success) {
+      setTimeout(()=> {
+      setEnviando(false);
       setSucesso(true);
-    }
+    },800);
   }
-
+    if (!data.success) {
+      setEnviando(false);
+      setProgresso(0);
+      toast.error("Erro ao enviar arquivo");
+    }
   if (sucesso) {
     return (
       <main className="min-h-screen flex items-center justify-center p-6">
@@ -143,7 +150,7 @@ export default function Home() {
               disabled={enviando}
               className="primary-button w-full"
             >
-              {enviando ? "Enviando..." : "❤️ Enviar"}
+              {enviando ? `Enviando... ${progresso}%` : "❤️ Enviar"}
             </button>
           </div>
         </div>
