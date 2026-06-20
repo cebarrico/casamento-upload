@@ -94,7 +94,7 @@ export default function Home() {
               <span className="text-5xl">📷</span>
 
               <span className="text-lg font-semibold text-[#2f4f46]">
-                Toque aqui para enviar fotos
+                Toque aqui para enviar 1 foto
               </span>
 
               <span className="text-sm text-gray-500 text-center">
@@ -105,13 +105,17 @@ export default function Home() {
             <input
               id="arquivos"
               type="file"
-              multiple
               accept="image/*,video/*"
               className="hidden"
               onChange={(e) => {
                 const files = e.target.files;
 
                 if (!files) return;
+                if (files.length > 1) {
+                  toast.error("Selecione apenas 1 arquivo");
+                  e.target.value="";
+                  return;
+                }
 
                 for (const file of Array.from(files)) {
                   if (file.size > 50 * 1024 * 1024) {
