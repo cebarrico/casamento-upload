@@ -42,12 +42,13 @@ export default function Home() {
       setEnviando(false);
       setSucesso(true);
     },800);
-  }
+  };
     if (!data.success) {
       setEnviando(false);
       setProgresso(0);
       toast.error("Erro ao enviar arquivo");
-    }
+    };
+  };
   if (sucesso) {
     return (
       <main className="min-h-screen flex items-center justify-center p-6">
